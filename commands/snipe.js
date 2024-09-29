@@ -3,7 +3,7 @@ const db = require('../../fonctions/database.js');
 
 module.exports = {
     name: "snipe",
-    description: "Afficher le dernier message suppimer.",
+    description: "Afficher le dernier message suppimé.",
     aliases: [],
     permissions: [PermissionsBitField.Flags.UseApplicationCommands],
     guildOwnerOnly: false,
