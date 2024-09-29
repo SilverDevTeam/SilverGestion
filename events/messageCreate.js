@@ -28,8 +28,5 @@ module.exports = {
 
         command.execute(client, message, args);
         console.log(`[CMD] ${message.guild.name} | ${message.author.tag} | ${command.name}`);
-        if (message) {
-            console.log(message)
-        }
     }
 }
