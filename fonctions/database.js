@@ -12,7 +12,6 @@ db.run(`CREATE TABLE IF NOT EXISTS users (
 
 db.run(`CREATE TABLE IF NOT EXISTS guilds (
   guildId TEXT,
-  logschannel TEXT,
   raidmode INTERGER DEFAULT 0,
   bye TEXT,
   bvn TEXT,
@@ -32,6 +31,15 @@ db.run(`CREATE TABLE IF NOT EXISTS channels (
   snipe TEXT,
   snipeAuthor TEXT,
   autoreact TEXT,
+  PRIMARY KEY (guildId, channelId)
+)`)
+
+db.run(`CREATE TABLE IF NOT EXISTS logs (
+  guildId TEXT,
+  channelId TEXT,
+  logscmd TEXT,
+  logsmessage TEXT,
+  logsserveur TEXT,
   PRIMARY KEY (guildId, channelId)
 )`)
 
