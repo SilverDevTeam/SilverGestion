@@ -4,7 +4,7 @@ const fs = require('fs');
 
 const shadow = require("./shadow.json");
 const config = require("./config.json");
-const clientId = client.config.id;
+const clientId = config.id;
 
 const commands = [];
 
