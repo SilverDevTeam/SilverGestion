@@ -1,5 +1,5 @@
 const { EmbedBuilder, PermissionFlagsBits, PermissionsBitField } = require('discord.js');
-const db = require('../../fonctions/database.js');
+const db = require('../fonctions/database.js');
 
 module.exports = {
     name: "snipe",
