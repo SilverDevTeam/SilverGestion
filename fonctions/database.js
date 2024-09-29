@@ -26,13 +26,6 @@ db.run(`CREATE TABLE IF NOT EXISTS guilds (
   PRIMARY KEY (guildId)
 )`)
 
-db.run(`CREATE TABLE IF NOT EXISTS rolePermission (
-  guildId TEXT,
-  roleId TEXT,
-  permission INTEGER,
-  PRIMARY KEY (guildId, permission)
-)`);
-
 db.run(`CREATE TABLE IF NOT EXISTS channels (
   guildId TEXT,
   channelId TEXT,
