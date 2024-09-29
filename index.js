@@ -1,6 +1,7 @@
 const { Client, Collection, GatewayIntentBits, Partials, ActivityType } = require("discord.js");
 const fs = require("fs");
 const colors = require("colors");
+var loggE = require("./loggE.js")
 
 const client = new Client({
     intents: [ GatewayIntentBits.Guilds, GatewayIntentBits.GuildBans, GatewayIntentBits.GuildEmojisAndStickers, GatewayIntentBits.GuildIntegrations, GatewayIntentBits.GuildWebhooks, GatewayIntentBits.GuildInvites, GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildMessageTyping, GatewayIntentBits.DirectMessages, GatewayIntentBits.DirectMessageReactions, GatewayIntentBits.DirectMessageTyping, GatewayIntentBits.GuildScheduledEvents, GatewayIntentBits.GuildPresences, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent ],
@@ -47,6 +48,11 @@ for (const file of commandFiles) {
 
 // gestion des erreurs
 process.on("unhandledRejection", (error) => {
-    if (error.code == 10062) return; // Unknown interaction
-    console.log(`[ERROR] ${error}`.red);
+    if (error.code == 10062) return; // Unknown Interaction
+    if (error.code == 10008) return; // Unknown Message
+    if (error.code == 10003) return; // Unknown Channel
+    if (error.code == 50007) return; // Cannot send messages to this user
+    if (error.code == 50013) return; // Missing Permission
+    loggE(client, `[ERROR] ${error}\n[ERROR.CODE] : ${error.code}\n`)
+    console.log(`[ERROR] ${error}\n[ERROR.CODE] : ${error.code}\n`.red);
 })
