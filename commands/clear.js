@@ -17,10 +17,9 @@ module.exports = {
         message.channel.bulkDelete(Number(nombre))
     },
     async executeSlash(client, interaction) {
-
-            const nombre = interaction.options.getString('nombre') 
-            if (nombre > 100) return interaction.reply('**Je ne peux supprimer plus de 100 message.**')
-            message.channel.bulkDelete(Number(nombre))
+        const nombre = interaction.options.getString('nombre')
+        if (nombre > 100) return interaction.reply('**Je ne peux supprimer plus de 100 message.**')
+        message.channel.bulkDelete(Number(nombre))
     },
     get data() {
         return new SlashCommandBuilder()
