@@ -1,3 +1,5 @@
+const db = require("../fonctions/database.js");
+
 module.exports = {
     name: "messageCreate",
     async execute(client, message) {

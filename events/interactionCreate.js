@@ -1,4 +1,5 @@
 const { InteractionType } = require("discord.js");
+const db = require("../fonctions/database.js");
 
 module.exports = {
     name: "interactionCreate",
