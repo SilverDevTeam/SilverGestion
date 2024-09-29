@@ -8,8 +8,8 @@ module.exports = {
     guildOwnerOnly: false,
     botOwnerOnly: false,
 
-    async execute(message, args, client) {
-        if (args[0]) {
+    async execute(client, message, args) {
+        if (!args[0]) {
             return message.channel.send('Veuillez specifier un nombre de message.')
         }
         const nombre = args[0]

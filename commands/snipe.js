@@ -9,7 +9,7 @@ module.exports = {
     guildOwnerOnly: false,
     botOwnerOnly: false,
 
-    async execute(message, args, client) {
+    async execute(client, message, args) {
         const donnee = await new Promise((resolve, reject) => {
             db.get(`SELECT * FROM channels WHERE guildId = ? AND channelId = ?`, [message.guild.id, message.channel.id], (err, row) => {
                 if (err) reject(err);
