@@ -42,6 +42,12 @@ module.exports = {
                             .setDescription("Permet la configuration du message d'au revoir")
                             .setEmoji("➖")
                             .setDefault(false),
+                        new StringSelectMenuOptionBuilder()
+                            .setLabel("Autorôle")
+                            .setValue("autoRole")
+                            .setDescription("Permet la configuration du rôle automatique (que je donne a tout les nouveaux membres)")
+                            .setEmoji("🖊️")
+                            .setDefault(false),
                     )
             )
 
