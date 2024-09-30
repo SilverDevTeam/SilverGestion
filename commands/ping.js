@@ -3,7 +3,7 @@ const db = require("../fonctions/database.js");
 
 module.exports = {
     name: "ping",
-    description: "Afficher le ping du bot.",
+    description: "Afficher la latence du bot.",
     aliases: [],
     permissions: [PermissionsBitField.Flags.ViewChannel],
     guildOwnerOnly: false,
