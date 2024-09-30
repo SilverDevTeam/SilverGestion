@@ -53,15 +53,15 @@ process.on("unhandledRejection", (error) => {
     if (error.code == 10003) return; // Unknown Channel
     if (error.code == 50007) return; // Cannot send messages to this user
     if (error.code == 50013) return; // Missing Permission
-    loggE(client, `[ERROR] \`${error}\`\n[ERROR.CODE] : ${error.code}\n`)
-    console.log(`[ERROR] ${error}\n[ERROR.CODE] : ${error.code}\n`.red);
+    loggE(client, `[ERROR]\`\`\`ansi\n[31m${error}[39m\`\`\`\n[ERROR.CODE] : ${error.code}\n`)
+    console.log(`[ERROR] \`${error}\`\n[ERROR.CODE] : ${error.code}\n`.red);
 })
 
-process.on("exit", (error) => {
-    if (error.code == "10064") return;
-    if (error.code == "10008") return;
-    if (error.code == "10062") return;
-    loggE(client, `[antiCrash] :: Exit : \`${error}\`\n[ERROR.CODE] : ${error.code}\n`)
+process.on("exit", (code) => {
+    if (code == "10064") return;
+    if (code == "10008") return;
+    if (code == "10062") return;
+    loggE(client, `[antiCrash] :: Exit\n[ERROR.CODE] : ${code}\n`)
     console.log(" [antiCrash] :: Exit".red);
     console.log("Code de sortie:", code);
 });
