@@ -19,7 +19,7 @@ module.exports = {
             messageBvnBye(client, interaction, 'bvn')
         }
         else if (selected === "bye") {
-            messageBvnBye(client, interaction, 'bvn')
+            messageBvnBye(client, interaction, 'bye')
         }
         else if (selected === "autoRole") {
             const message = await interaction.reply({ content: 'Veuillez mentionner/envoyer l\'id du rôle qui devra être mis automatiquement a l\'arrivée', ephemeral: true })
