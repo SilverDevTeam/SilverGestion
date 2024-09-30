@@ -90,7 +90,7 @@ async function messageBvnBye(client, interaction, type) {
                         }
                     }, 15000);
 
-                    db.run(`UPDATE guilds SET ${type} = ?, ${type}Title = ?, ${type}Text = ? WHERE guildId = ?`, [channel, title, text, interaction.guild.id]);
+                    db.run(`UPDATE guilds SET ${type} = ?, ${type}Title = ?, ${type}Texte = ? WHERE guildId = ?`, [channel, title, text, interaction.guild.id]);
                 })
             })
         } else {
