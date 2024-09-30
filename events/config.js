@@ -21,7 +21,7 @@ module.exports = {
         else if (selected === "bye") {
             messageBvnBye(client, interaction, 'bvn')
         }
-        else if (selected === "roleAuto") {
+        else if (selected === "autoRole") {
             const message = await interaction.reply({ content: 'Veuillez mentionner/envoyer l\'id du rôle qui devra être mis automatiquement a l\'arrivée', ephemeral: true })
             const filter = (m) => m.author.id === interaction.user.id;
             const collectorRole = interaction.channel.createMessageCollector({
@@ -34,7 +34,7 @@ module.exports = {
                 let role = m.content
                 role = role.replace('<@&', '')
                 role = role.replace('>', '')
-                if (client.roles.cache.get(role)) {
+                if (interaction.guild.roles.cache.get(role)) {
                     db.run(`UPDATE guilds SET bvnRole = ? WHERE guildId = ?`, [role, interaction.guild.id]);
                     message.edit({ content: 'Fin de la configuration.' })
                 } else return message.edit({ content: 'Veuillez recommencer en mentionnant un rôle valide.' })
