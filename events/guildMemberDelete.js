@@ -6,16 +6,19 @@ module.exports = {
     async execute(client, member) {
         
         const donnee = await new Promise((resolve, reject) => {
-            db.get(`SELECT * FROM guilds WHERE guildId = ?`, [guild.id], (err, row) => {
+            db.get(`SELECT * FROM guilds WHERE guildId = ?`, [member.guild.id], (err, row) => {
                 if (err) reject(err);
                 resolve(row);
             });
         });
 
         if (donnee.bye) {
+            let text = donnee.byeTexte
+            text = text.replace('[membre]', `<@${member.id}>`)
+            text = text.replace('[serveur]', member.guild.name)
             const embedChannel = new EmbedBuilder()
                 .setTitle(donnee.byeTitle)
-                .setDescription(donnee.byeTexte)
+                .setDescription(text)
                 .setColor(donnee.byeColor)
                 .setTimestamp()
                 .setFooter({

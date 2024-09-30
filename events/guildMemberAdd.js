@@ -10,7 +10,7 @@ module.exports = {
 
         
         const donnee = await new Promise((resolve, reject) => {
-            db.get(`SELECT * FROM guilds WHERE guildId = ?`, [guild.id], (err, row) => {
+            db.get(`SELECT * FROM guilds WHERE guildId = ?`, [member.guild.id], (err, row) => {
                 if (err) reject(err);
                 resolve(row);
             });
