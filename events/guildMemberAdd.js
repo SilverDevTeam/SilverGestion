@@ -33,7 +33,13 @@ module.exports = {
             client.channels.cache.get(donnee.bvn).send({ embeds: [embedChannel] })
         }
         if (donnee.bvnRole) {
-            // SOON
+            try {
+                member.roles.add(donnee.bvnRole)
+            } catch {
+                if (donnee.bvn) {
+                    client.channels.cache.get(donnee.bvn).send(`Le rôle que je dois donner automatiquement est introuvable ou alors **au dessus de moi** !`)
+                } else return
+            }
         }
     }
 }
