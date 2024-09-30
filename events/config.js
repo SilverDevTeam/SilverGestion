@@ -43,8 +43,10 @@ async function messageBvnBye(client, interaction, type) {
     });
     collectorChannel.on("collect", async (m) => {
         m.delete()
-        if (client.channels.cache.get(m.content)) {
-            const channel = m.content
+        let channel = m.content
+        channel = channel.replace('<#', '')
+        channel = channel.replace('>', '')
+        if (client.channels.cache.get(channel)) {
 
             const msgBase = await m.reply('Veuillez ecrire le titre du message.')
             setTimeout(() => {
