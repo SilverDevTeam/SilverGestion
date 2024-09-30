@@ -7,5 +7,30 @@ module.exports = {
         db.run(`INSERT OR IGNORE INTO users (guildId, userId) VALUES (?, ?)`, [
             member.guild.id, member.id
         ]);
+
+        
+        const donnee = await new Promise((resolve, reject) => {
+            db.get(`SELECT * FROM guilds WHERE guildId = ?`, [guild.id], (err, row) => {
+                if (err) reject(err);
+                resolve(row);
+            });
+        });
+
+        if (donnee.bvn) {
+            const embedChannel = new EmbedBuilder()
+                .setTitle(donnee.bvnTitle)
+                .setDescription(donnee.bvnTexte)
+                .setColor(donnee.bvnColor)
+                .setTimestamp()
+                .setFooter({
+                    text: `SilverGestion`,
+                    iconURL: client.user.displayAvatarURL(),
+                });
+            
+            client.channels.cache.get(donnee.bvn).send({ embeds: [embedChannel] })
+        }
+        if (donnee.bvnRole) {
+            // SOON
+        }
     }
 }
