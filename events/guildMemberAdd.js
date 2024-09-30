@@ -17,10 +17,13 @@ module.exports = {
         });
 
         if (donnee.bvn) {
+            let text = donnee.bvnTexte
+            text = text.replace('[membre]', `<@${member.id}>`)
+            text = text.replace('[serveur]', member.guild.name)
             const embedChannel = new EmbedBuilder()
                 .setTitle(donnee.bvnTitle)
-                .setDescription(donnee.bvnTexte)
-                .setColor(donnee.bvnColor)
+                .setDescription(text)
+                .setColor(donnee.bvnColor ?? client.config.color)
                 .setTimestamp()
                 .setFooter({
                     text: `SilverGestion`,
