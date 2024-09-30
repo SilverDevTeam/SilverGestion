@@ -38,6 +38,7 @@ db.run(`CREATE TABLE IF NOT EXISTS channels (
   snipe TEXT,
   snipeAuthor TEXT,
   autoreact TEXT,
+  ghostping TEXT,
   PRIMARY KEY (guildId, channelId)
 )`)
 

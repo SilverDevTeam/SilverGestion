@@ -40,6 +40,25 @@ module.exports = {
                 } else return message.edit({ content: 'Veuillez recommencer en mentionnant un rôle valide.' })
             })
         }
+        else if (selected === "ghostping") {
+            const message = await interaction.reply({ content: 'Veuillez mentionner/envoyer l\'id du salon conserné.', ephemeral: true })
+            const filter = (m) => m.author.id === interaction.user.id;
+            const collectorSalon = interaction.channel.createMessageCollector({
+                filter,
+                time: 30000,
+                max: 1,
+            });
+            collectorSalon.on("collect", async (m) => {
+                m.delete()
+                let channel = m.content
+                channel = channel.replace('<#', '')
+                channel = channel.replace('>', '')
+                if (interaction.guild.channels.cache.get(channel)) {
+                    db.run(`UPDATE channels SET ghostping = 1 WHERE guildId = ? AND channelId = ?`, [interaction.guild.id, channel]);
+                    message.edit({ content: 'Fin de la configuration.' })
+                } else return message.edit({ content: 'Veuillez recommencer en mentionnant un salon valide.' })
+            })
+        }
     }
 }
 

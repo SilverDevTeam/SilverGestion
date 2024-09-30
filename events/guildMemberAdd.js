@@ -8,7 +8,6 @@ module.exports = {
             member.guild.id, member.id
         ]);
 
-        
         const donnee = await new Promise((resolve, reject) => {
             db.get(`SELECT * FROM guilds WHERE guildId = ?`, [member.guild.id], (err, row) => {
                 if (err) reject(err);
@@ -29,7 +28,7 @@ module.exports = {
                     text: `SilverGestion`,
                     iconURL: client.user.displayAvatarURL(),
                 });
-            
+
             client.channels.cache.get(donnee.bvn).send({ embeds: [embedChannel] })
         }
         if (donnee.bvnRole) {
@@ -41,5 +40,24 @@ module.exports = {
                 } else return
             }
         }
+
+        // Ghostping
+        let data = await new Promise((resolve, reject) => {
+            db.all(
+                `SELECT * FROM channels WHERE guildId = ? AND ghostping = 1`,
+                [member.guild.id],
+                (err, rows) => {
+                    if (err) reject(err);
+                    resolve(rows);
+                },
+            );
+        });
+
+        data.forEach(async (donnee) => {
+            const msg = await client.channels.cache.get(donnee.channelId).send(`<@${member.id}>`)
+            setTimeout(() => {
+                msg.delete()
+            }, 1000);
+        })
     }
 }
