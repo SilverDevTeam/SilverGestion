@@ -64,4 +64,4 @@ process.on("exit", (error) => {
     loggE(client, `[antiCrash] :: Exit : \`${error}\`\n[ERROR.CODE] : ${error.code}\n`)
     console.log(" [antiCrash] :: Exit".red);
     console.log("Code de sortie:", code);
-  });
+});
