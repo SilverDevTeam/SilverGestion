@@ -3,7 +3,7 @@ const db = require('../fonctions/database.js');
 
 module.exports = {
   name: "messageDelete",
-  async execute(message, client) {
+  async execute(client, message) {
     /*if (message.channel.isDMBased() || message.author.bot) return;
     if (message.content.startsWith(client.config.prefix)) return;
 
