@@ -42,12 +42,9 @@ async function messageBvnBye(client, interaction, type) {
         max: 1,
     });
     collectorChannel.on("collect", async (m) => {
+        m.delete()
         if (client.channels.cache.get(m.content)) {
             const channel = m.content
-
-            try {
-                m.delete()
-            } catch { return }
 
             const msgBase = await m.reply('Veuillez ecrire le titre du message.')
             setTimeout(() => {
@@ -63,6 +60,7 @@ async function messageBvnBye(client, interaction, type) {
                 max: 1,
             });
             collectorTitre.on("collect", async (m) => {
+                m.delete()
                 const title = m.content
 
                 const msgBase = await m.reply('Veuillez ecrire le contenu du message. \n-# Possiblité de mettre [membre] pour mentionner le membre ou encore [serveur] pour mettre le noms du serveur')
@@ -79,6 +77,7 @@ async function messageBvnBye(client, interaction, type) {
                     max: 1,
                 });
                 collectorText.on("collect", async (m) => {
+                    m.delete()
                     const text = m.content
 
                     const msgBase = await m.reply('Fin de la configuration')
