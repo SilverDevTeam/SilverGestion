@@ -16,7 +16,7 @@ module.exports = {
                 resolve(row);
             });
         });
-        if (donnee.snipe == null) return message.channel.send('> **<:modo:1262161126414614590> Aucun message supprimé**')
+        if (donnee.snipe == null) return message.channel.send('> **<:modo:1262161126414614590> Aucun message supprimé récemment.**')
         const embed = new EmbedBuilder()
             .setTitle('Snipe :')
             .setColor('Red')
@@ -35,7 +35,7 @@ module.exports = {
                 resolve(row);
             });
         });
-        if (donnee.snipe == null) return interaction.channel.send('> **<:modo:1262161126414614590> Aucun message supprimé**')
+        if (donnee.snipe == null) return interaction.channel.send('> **<:modo:1262161126414614590> Aucun message supprimé récemment.**')
         const embed = new EmbedBuilder()
             .setTitle('Snipe :')
             .setColor('Red')

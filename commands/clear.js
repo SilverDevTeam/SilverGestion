@@ -26,8 +26,8 @@ module.exports = {
             .setName(this.name)
             .setDescription(this.description)
             .addStringOption(option =>
-                option.setName('nombre')
-                    .setDescription("nombre de message")
+                option.setName('number')
+                    .setDescription("Nombre de messages a supprimer")
                     .setRequired(true)
             )
             .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
