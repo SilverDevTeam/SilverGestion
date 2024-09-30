@@ -19,7 +19,7 @@ module.exports = {
         if (donnee.snipe == null) return message.channel.send('> **<:modo:1262161126414614590> Aucun message supprimé récemment.**')
         const embed = new EmbedBuilder()
             .setTitle('Snipe :')
-            .setColor('Red')
+            .setColor(client.config.color)
             .setTimestamp()
             .setDescription(`
                 __**Message :**__ ${donnee.snipe}
@@ -38,7 +38,7 @@ module.exports = {
         if (donnee.snipe == null) return interaction.channel.send('> **<:modo:1262161126414614590> Aucun message supprimé récemment.**')
         const embed = new EmbedBuilder()
             .setTitle('Snipe :')
-            .setColor('Red')
+            .setColor(client.config.color)
             .setTimestamp()
             .setDescription(`
                 __**Message :**__ ${donnee.snipe}

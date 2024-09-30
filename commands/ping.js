@@ -9,10 +9,30 @@ module.exports = {
     guildOwnerOnly: false,
     botOwnerOnly: false,
     async execute(client, message, args) {
-        message.reply(`🏓 **Mon ping est de :** ${client.ws.ping} ms.`).catch(() => {});
+        const embed = new EmbedBuilder()
+            .setTitle("Ping")
+            .setDescription(`🏓 **Mon ping est de :** __${client.ws.ping} ms.__`)
+            .setColor(client.config.color)
+            .setTimestamp()
+            .setFooter({
+                text: `SilverGestion`,
+                iconURL: client.user.displayAvatarURL(),
+            });
+
+        message.channel.send({ embeds: [embed]});
     },
     async executeSlash(client, interaction) {
-        interaction.reply(`🏓 **Mon ping est de :** ${client.ws.ping} ms.`).catch(() => {});
+        const embed = new EmbedBuilder()
+            .setTitle("Ping")
+            .setDescription(`🏓 **Mon ping est de :** __${client.ws.ping} ms.__`)
+            .setColor(client.config.color)
+            .setTimestamp()
+            .setFooter({
+                text: `SilverGestion`,
+                iconURL: client.user.displayAvatarURL(),
+            });
+
+        interaction.reply({ embeds: [embed], allowedMentions: { repliedUser: false } });
     },
     get data() {
         return new SlashCommandBuilder()
