@@ -17,7 +17,7 @@ module.exports = {
 
         client.channels.cache.get('1290031426904785029').send({ embeds: [embed] })
 
-        console.log(`[READY] ${client.user.tag} est prêt | ${client.guilds.cache.size} serveurs | ${client.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0)} utilisateurs`);
+        console.log(`[READY] ${client.user.tag} est prêt | ${client.guilds.cache.size} serveurs | ${client.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0)} utilisateurs`.green);
         setInterval(() => {
             let random = Math.floor(Math.random() * status.length);
             client.user.setActivity(status[random]);
