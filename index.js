@@ -13,7 +13,7 @@ const client = new Client({
             name: `starting...`,
             type: ActivityType.Custom,
         }],
-        status: "Online"
+        status: "dnd"
     },
     allowedMentions: {
         parse: ["roles", "users", "everyone"],
@@ -53,8 +53,8 @@ process.on("unhandledRejection", (error) => {
     if (error.code == 10003) return; // Unknown Channel
     if (error.code == 50007) return; // Cannot send messages to this user
     if (error.code == 50013) return; // Missing Permission
-    loggE(client, `[ERROR]\`\`\`ansi\n[31m${error}[39m\`\`\`\n[ERROR.CODE] : ${error.code}\n`)
-    console.log(`[ERROR] \`${error}\`\n[ERROR.CODE] : ${error.code}\n`.red);
+    loggE(client, `\`\`\`ansi\n[31m${error}[39m\`\`\`\n\n\`[ERROR.CODE] : ${error.code}\`\n`)
+    console.log(`[ERROR] ${error}\n[ERROR.CODE] : ${error.code}\n`.red);
 })
 
 process.on("exit", (code) => {
