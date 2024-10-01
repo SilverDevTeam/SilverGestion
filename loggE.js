@@ -29,5 +29,5 @@ module.exports = function loggE(client, erreur) {
             //iconURL: client.user.displayAvatarURL(), fait une erreur sur le host, jpp fix je suis sur la tablette de cours. je peux juste lancer le code sur le host dsl
         });
 
-    client.channels.cache.get('1289977176149463103').send({ embeds: [embed] })
+    //client.channels.cache.get('1289977176149463103').send({ embeds: [embed] }) deuxieme erreur faut qu'on fix sa
 }
