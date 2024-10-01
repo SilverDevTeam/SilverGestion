@@ -1,11 +1,11 @@
-const { SlashCommandBuilder, PermissionsBitField, EmbedBuilder } = require("discord.js");
+const { SlashCommandBuilder, PermissionsBitField, PermissionFlagsBits, EmbedBuilder } = require("discord.js");
 const db = require("../fonctions/database.js");
 
 module.exports = {
     name: "ping",
     description: "Afficher la latence du bot.",
     aliases: [],
-    permissions: [PermissionsBitField.Flags.ViewChannel],
+    permissions: [PermissionsBitField.Flags.UseApplicationCommands],
     guildOwnerOnly: false,
     botOwnerOnly: false,
     async execute(client, message, args) {
@@ -38,5 +38,6 @@ module.exports = {
         return new SlashCommandBuilder()
             .setName(this.name)
             .setDescription(this.description)
+            .setDefaultMemberPermissions(PermissionFlagsBits.UseApplicationCommands)
     }
 }

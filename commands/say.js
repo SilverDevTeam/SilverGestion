@@ -1,11 +1,11 @@
-const { SlashCommandBuilder, PermissionsBitField, EmbedBuilder } = require("discord.js");
+const { SlashCommandBuilder, PermissionsBitField, PermissionFlagsBits, EmbedBuilder } = require("discord.js");
 const db = require("../fonctions/database.js");
 
 module.exports = {
     name: "say",
     description: "Envoie un message sous le nom du bot.",
     aliases: [],
-    permissions: [PermissionsBitField.Flags.ViewChannel],
+    permissions: [PermissionsBitField.Flags.ManageMessages],
     guildOwnerOnly: false,
     botOwnerOnly: false,
     async execute(client, message, args) {
@@ -27,5 +27,6 @@ module.exports = {
                     .setDescription("Message que le bot doit envoyer. (; = saut de ligne)")
                     .setRequired(true)
             )
+            .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
     }
 }
