@@ -1,6 +1,7 @@
+const { Routes } = require('discord.js');
 const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v10'); // Make sure you're importing this properly
 const fs = require('fs');
+
 const shadow = require("./shadow.json");
 const config = require("./config.json");
 const clientId = config.id;
@@ -16,16 +17,8 @@ commandFiles.forEach(commandFile => {
 const rest = new REST({ version: '10' }).setToken(shadow.token);
 
 rest.put(
+    // Routes.applicationGuildCommands(clientId, guildId), { body: commands } // Guild commands
     Routes.applicationCommands(clientId), { body: commands } // Global commands
-)
-.then((data) => {
-    console.log(`Successfully registered ${data.length} application commands.`);
-    const { exec } = require('child_process');
-    exec('npm start', (err, stderr) => {
-        if (err) {
-            console.error(`Error executing npm start: ${stderr}`);
-            return;
-        }
-    });
-})
-.catch(console.error);
+    )
+	.then((data) => console.log(`Successfully registered ${data.length} application commands.`))
+	.catch(console.error);
