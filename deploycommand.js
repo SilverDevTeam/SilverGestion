@@ -22,13 +22,7 @@ rest.put(
 .then((data) => {
     console.log(`Successfully registered ${data.length} application commands.`);
     const { exec } = require('child_process');
-    exec('node index.js', (error, stdout, stderr) => {
-        if (error) {
-            console.error(`Error executing index.js: ${error}`);
-            return;
-        }
-        if (stdout) console.log(`Output: ${stdout}`);
-        if (stderr) console.error(`Error Output: ${stderr}`);
+    exec('npm start', (error, stdout, stderr)
     });
 })
 .catch(console.error);
