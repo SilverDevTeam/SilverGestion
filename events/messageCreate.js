@@ -28,6 +28,7 @@ module.exports = {
             if ((!authorPerms || !authorPerms.has(command.permissions)) && !client.config.owners.includes(message.author.id)) return message.reply("Vous n'avez pas les permissions nécessaires pour exécuter cette commande.").catch(() => {});
         }
 
+        message.delete()
         command.execute(client, message, args);
         console.log(`[CMD] ${message.guild.name} | ${message.author.tag} | ${command.name}`);
     }
