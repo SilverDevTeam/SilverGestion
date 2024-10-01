@@ -23,6 +23,5 @@ rest.put(
     console.log(`Successfully registered ${data.length} application commands.`);
     const { exec } = require('child_process');
     exec('npm start');
-    });
-})
 .catch(console.error);
+};
