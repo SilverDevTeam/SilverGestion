@@ -22,83 +22,140 @@ module.exports = {
             messageBvnBye(client, interaction, 'bye')
         }
         else if (selected === "autoRole") {
-            const message = await interaction.reply({ content: 'Veuillez mentionner/envoyer l\'id du rôle qui devra être mis automatiquement a l\'arrivée', ephemeral: true })
-            const filter = (m) => m.author.id === interaction.user.id;
-            const collectorRole = interaction.channel.createMessageCollector({
-                filter,
-                time: 30000,
-                max: 1,
-            });
-            collectorRole.on("collect", async (m) => {
-                m.delete()
-                let role = m.content
-                role = role.replace('<@&', '')
-                role = role.replace('>', '')
-                if (interaction.guild.roles.cache.get(role)) {
-                    db.run(`UPDATE guilds SET bvnRole = ? WHERE guildId = ?`, [role, interaction.guild.id]);
-                    message.edit({ content: 'Fin de la configuration.' })
-                } else return message.edit({ content: 'Veuillez recommencer en mentionnant un rôle valide.' })
-            })
-        }
-        else if (selected === "NOautoRole") {
-            const message = await interaction.reply({ content: 'Cela desactivera l\'ajout de rôle automatique (envoyer OK pour continuer).', ephemeral: true })
-            const filter = (m) => m.author.id === interaction.user.id;
-            const collectorRole = interaction.channel.createMessageCollector({
-                filter,
-                time: 30000,
-                max: 1,
-            });
-            collectorRole.on("collect", async (m) => {
-                m.delete()
+            const msg = await interaction.reply('Voulez vous supprimer la configuration ou la modifier ? (`delete` pour supprimer, sinon `suite`)')
+            setTimeout(() => {
+                try {
+                    msg.delete()
+                } catch {
+                    return
+                }
+            }, 15000);
 
-                if (m.content == 'OK') {
-                    db.run(`UPDATE guilds SET bvnRole = ? WHERE guildId = ?`, [null, interaction.guild.id]);
-                    message.edit({ content: 'Fin de la configuration.' })
-                } else return message.edit({ content: 'Le systeme reste donc actif.' })
+            const filter = (m) => m.author.id === interaction.user.id;
+            const collector = interaction.channel.createMessageCollector({
+                filter,
+                time: 15000,
+                max: 1,
+            });
+            collector.on("collect", async (m) => {
+                m.delete()
+                if (m.content == 'delete' || m.content == 'DELETE') {
+                    const message = await interaction.reply({ content: 'Veuillez mentionner/envoyer l\'id du rôle qui devra être mis automatiquement a l\'arrivée', ephemeral: true })
+                    const collectorRole = interaction.channel.createMessageCollector({
+                        filter,
+                        time: 30000,
+                        max: 1,
+                    });
+                    collectorRole.on("collect", async (m) => {
+                        m.delete()
+                        let role = m.content
+                        role = role.replace('<@&', '')
+                        role = role.replace('>', '')
+                        if (interaction.guild.roles.cache.get(role)) {
+                            db.run(`UPDATE guilds SET bvnRole = ? WHERE guildId = ?`, [role, interaction.guild.id]);
+                            message.edit({ content: 'Fin de la configuration.' })
+                        } else return message.edit({ content: 'Veuillez recommencer en mentionnant un rôle valide.' })
+                    })
+                }
+                else {
+                    const message = await interaction.reply({ content: 'Cela desactivera l\'ajout de rôle automatique (envoyer OK pour continuer).', ephemeral: true })
+                    const collectorRole = interaction.channel.createMessageCollector({
+                        filter,
+                        time: 30000,
+                        max: 1,
+                    });
+                    collectorRole.on("collect", async (m) => {
+                        m.delete()
+
+                        if (m.content == 'OK') {
+                            db.run(`UPDATE guilds SET bvnRole = ? WHERE guildId = ?`, [null, interaction.guild.id]);
+                            message.edit({ content: 'Fin de la configuration.' })
+                        } else return message.edit({ content: 'Le systeme reste donc actif.' })
+                    })
+                }
             })
         }
         else if (selected === "ghostping") {
-            const message = await interaction.reply({ content: 'Veuillez mentionner/envoyer l\'id du salon conserné.', ephemeral: true })
+            const msg = await interaction.reply('Voulez vous supprimer la configuration ou la modifier ? (`delete` pour supprimer, sinon `suite`)')
+            setTimeout(() => {
+                try {
+                    msg.delete()
+                } catch {
+                    return
+                }
+            }, 15000);
+
             const filter = (m) => m.author.id === interaction.user.id;
-            const collectorSalon = interaction.channel.createMessageCollector({
+            const collector = interaction.channel.createMessageCollector({
                 filter,
-                time: 30000,
+                time: 15000,
                 max: 1,
             });
-            collectorSalon.on("collect", async (m) => {
+            collector.on("collect", async (m) => {
                 m.delete()
-                let channel = m.content
-                channel = channel.replace('<#', '')
-                channel = channel.replace('>', '')
-                if (interaction.guild.channels.cache.get(channel)) {
-                    db.run(`UPDATE channels SET ghostping = 1 WHERE guildId = ? AND channelId = ?`, [interaction.guild.id, channel]);
-                    message.edit({ content: 'Fin de la configuration.' })
-                } else return message.edit({ content: 'Veuillez recommencer en mentionnant un salon valide.' })
-            })
-        }
-        else if (selected === "NOghostping") {
-            const message = await interaction.reply({ content: 'Veuillez mentionner/envoyer l\'id du salon conserné.', ephemeral: true })
-            const filter = (m) => m.author.id === interaction.user.id;
-            const collectorSalon = interaction.channel.createMessageCollector({
-                filter,
-                time: 30000,
-                max: 1,
-            });
-            collectorSalon.on("collect", async (m) => {
-                m.delete()
-                let channel = m.content
-                channel = channel.replace('<#', '')
-                channel = channel.replace('>', '')
-                if (interaction.guild.channels.cache.get(channel)) {
-                    db.run(`UPDATE channels SET ghostping = 0 WHERE guildId = ? AND channelId = ?`, [interaction.guild.id, channel]);
-                    message.edit({ content: 'Fin de la configuration.' })
-                } else return message.edit({ content: 'Veuillez recommencer en mentionnant un salon valide.' })
+                if (m.content == 'delete' || m.content == 'DELETE') {
+                    const message = await interaction.reply({ content: 'Veuillez mentionner/envoyer l\'id du salon conserné.', ephemeral: true })
+                    const collectorSalon = interaction.channel.createMessageCollector({
+                        filter,
+                        time: 30000,
+                        max: 1,
+                    });
+                    collectorSalon.on("collect", async (m) => {
+                        m.delete()
+                        let channel = m.content
+                        channel = channel.replace('<#', '')
+                        channel = channel.replace('>', '')
+                        if (interaction.guild.channels.cache.get(channel)) {
+                            db.run(`UPDATE channels SET ghostping = 0 WHERE guildId = ? AND channelId = ?`, [interaction.guild.id, channel]);
+                            message.edit({ content: 'Fin de la configuration.' })
+                        } else return message.edit({ content: 'Veuillez recommencer en mentionnant un salon valide.' })
+                    })
+                    return
+                }
+                else {
+                    const message = await interaction.reply({ content: 'Veuillez mentionner/envoyer l\'id du salon conserné.', ephemeral: true })
+                    const collectorSalon = interaction.channel.createMessageCollector({
+                        filter,
+                        time: 30000,
+                        max: 1,
+                    });
+                    collectorSalon.on("collect", async (m) => {
+                        m.delete()
+                        let channel = m.content
+                        channel = channel.replace('<#', '')
+                        channel = channel.replace('>', '')
+                        if (interaction.guild.channels.cache.get(channel)) {
+                            db.run(`UPDATE channels SET ghostping = 1 WHERE guildId = ? AND channelId = ?`, [interaction.guild.id, channel]);
+                            message.edit({ content: 'Fin de la configuration.' })
+                        } else return message.edit({ content: 'Veuillez recommencer en mentionnant un salon valide.' })
+                    })
+                }
             })
         }
     }
 }
 
 async function messageBvnBye(client, interaction, type) {
+
+    const msg = await interaction.reply('Voulez vous supprimer la configuration ou la modifier ? (`delete` pour supprimer, sinon `suite`)')
+    setTimeout(() => {
+        try {
+            msg.delete()
+        } catch {
+            return
+        }
+    }, 15000);
+
+    const filter = (m) => m.author.id === interaction.user.id;
+    const collector = interaction.channel.createMessageCollector({
+        filter,
+        time: 15000,
+        max: 1,
+    });
+    collector.on("collect", async (m) => {
+        m.delete()
+        if (m.content == 'delete' || m.content == 'DELETE') return
+    })
 
     const msgBase = await interaction.reply('Veuillez mentionner le salon dans lequel vous voulez recevoir les messages.')
     setTimeout(() => {
@@ -109,7 +166,6 @@ async function messageBvnBye(client, interaction, type) {
         }
     }, 30000);
 
-    const filter = (m) => m.author.id === interaction.user.id;
     const collectorChannel = interaction.channel.createMessageCollector({
         filter,
         time: 30000,

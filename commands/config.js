@@ -49,21 +49,9 @@ module.exports = {
                         .setEmoji("<:membre:1290727013367418932>")
                         .setDefault(false),
                     new StringSelectMenuOptionBuilder()
-                        .setLabel("Desactivation de l'autorôle")
-                        .setValue("NOautoRole")
-                        .setDescription("Permet la desactivation du rôle automatique (que je donne a tout les nouveaux membres)")
-                        .setEmoji("<:membre:1290727013367418932>")
-                        .setDefault(false),
-                    new StringSelectMenuOptionBuilder()
                         .setLabel("GhostPing")
                         .setValue("ghostping")
                         .setDescription("Permet la configuration de la mention automatique")
-                        .setEmoji("<a:ping:1290715689845395547>")
-                        .setDefault(false),
-                    new StringSelectMenuOptionBuilder()
-                        .setLabel("Desactivation du GhostPing")
-                        .setValue("NOghostping")
-                        .setDescription("Permet la desactivation de la mention automatique")
                         .setEmoji("<a:ping:1290715689845395547>")
                         .setDefault(false),
                     )
@@ -112,21 +100,9 @@ module.exports = {
                             .setEmoji("<:membre:1290727013367418932>")
                             .setDefault(false),
                         new StringSelectMenuOptionBuilder()
-                            .setLabel("Desactivation de l'autorôle")
-                            .setValue("NOautoRole")
-                            .setDescription("Permet la desactivation du rôle automatique (que je donne a tout les nouveaux membres)")
-                            .setEmoji("<:membre:1290727013367418932>")
-                            .setDefault(false),
-                        new StringSelectMenuOptionBuilder()
                             .setLabel("GhostPing")
                             .setValue("ghostping")
                             .setDescription("Permet la configuration de la mention automatique")
-                            .setEmoji("<a:ping:1290715689845395547>")
-                            .setDefault(false),
-                        new StringSelectMenuOptionBuilder()
-                            .setLabel("Desactivation du GhostPing")
-                            .setValue("NOghostping")
-                            .setDescription("Permet la desactivation de la mention automatique")
                             .setEmoji("<a:ping:1290715689845395547>")
                             .setDefault(false),
                     )
