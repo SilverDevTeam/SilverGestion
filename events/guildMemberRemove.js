@@ -2,7 +2,7 @@ const { EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder, StringSelect
 const db = require("../fonctions/database.js");
 
 module.exports = {
-    name: 'guildMemberDelete',
+    name: 'guildMemberRemove',
     async execute(client, member) {
         
         const donnee = await new Promise((resolve, reject) => {
