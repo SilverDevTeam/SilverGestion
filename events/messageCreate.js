@@ -3,7 +3,7 @@ const db = require("../fonctions/database.js");
 module.exports = {
     name: "messageCreate",
     async execute(client, message) {
-        if (message.channel.isDMBased() || message.author.bot) return;
+        if (!message.guild || message.author.bot) return;
         if (!message.content.startsWith(client.config.prefix)) return;
 
         // ANALYSEUR DE COMMANDES
@@ -31,5 +31,6 @@ module.exports = {
         message.delete()
         command.execute(client, message, args);
         console.log(`[CMD] ${message.guild.name} | ${message.author.tag} | ${command.name}`);
+        client.channels.cache.get('1290746340346822789').send(`\`\`\`ansi\n[32m[CMD-MSG] ${message.guild.name} | ${message.channel.name} | ${message.author.tag} | ${command.name}[39m\`\`\``);
     }
 }
