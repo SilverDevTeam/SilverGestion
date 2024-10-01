@@ -57,7 +57,7 @@ module.exports = {
             const msg = await client.channels.cache.get(donnee.channelId).send(`<@${member.id}>`)
             setTimeout(() => {
                 msg.delete()
-            }, 1000);
+            }, 2500);
         })
     }
 }
