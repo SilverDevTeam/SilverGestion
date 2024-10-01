@@ -7,7 +7,7 @@ module.exports = {
     async execute(client) {
         const embed = new EmbedBuilder()
             .setTitle(`Je suis oppérationel !`)
-            .setDescription(`🏓 **Mon ping est de :** ${client.ws.ping} ms. \n<:member:1262160675686584414> J'ai **${client.guilds.cache.size} serveurs** et **${client.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0)} utilisateurs !**`)
+            .setDescription(`<a:latency:1290719507697893498> **Mon ping est de :** ${client.ws.ping} ms. \n<:owner:1290727076135174216> J'ai **${client.guilds.cache.size} serveurs** et **${client.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0)} utilisateurs !**`)
             .setColor('Green')
             .setTimestamp()
             .setFooter({

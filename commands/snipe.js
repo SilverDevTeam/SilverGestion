@@ -16,7 +16,13 @@ module.exports = {
                 resolve(row);
             });
         });
-        if (donnee.snipe == null) return message.channel.send('> **<:modo:1262161126414614590> Aucun message supprimé récemment.**')
+        if (donnee.snipe == null) {
+            const msg = await message.channel.send('> **<a:warning:1290717663001051207> Aucun message supprimé récemment.**')
+            setTimeout(() => {
+                msg.delete()
+            }, 10000);
+            return
+        }
         const embed = new EmbedBuilder()
             .setTitle('Snipe :')
             .setColor(client.config.color)
@@ -35,7 +41,13 @@ module.exports = {
                 resolve(row);
             });
         });
-        if (donnee.snipe == null) return interaction.channel.send('> **<:modo:1262161126414614590> Aucun message supprimé récemment.**')
+        if (donnee.snipe == null) {
+            const msg = await interaction.reply('> **<a:warning:1290717663001051207> Aucun message supprimé récemment.**')
+            setTimeout(() => {
+                msg.delete()
+            }, 10000);
+            return
+        }
         const embed = new EmbedBuilder()
             .setTitle('Snipe :')
             .setColor(client.config.color)

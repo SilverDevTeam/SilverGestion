@@ -11,7 +11,7 @@ module.exports = {
     async execute(client, message, args) {
         const embed = new EmbedBuilder()
             .setTitle("Ping")
-            .setDescription(`🏓 **Mon ping est de :** __${client.ws.ping} ms.__`)
+            .setDescription(`<a:latency:1290719507697893498> **Mon ping est de :** __${client.ws.ping} ms.__ `)
             .setColor(client.config.color)
             .setTimestamp()
             .setFooter({
@@ -24,7 +24,7 @@ module.exports = {
     async executeSlash(client, interaction) {
         const embed = new EmbedBuilder()
             .setTitle("Ping")
-            .setDescription(`🏓 **Mon ping est de :** __${client.ws.ping} ms.__`)
+            .setDescription(`<a:latency:1290719507697893498> **Mon ping est de :** __${client.ws.ping} ms.__`)
             .setColor(client.config.color)
             .setTimestamp()
             .setFooter({
