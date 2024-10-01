@@ -16,7 +16,7 @@ module.exports = {
         message.channel.send(msg)
     },
     async executeSlash(client, interaction) {
-        interaction.channel.send(interaction.options.getString('message'))
+        interaction.channel.send(interaction.options.getString('message').replace(';', '\n'))
     },
     get data() {
         return new SlashCommandBuilder()
@@ -24,7 +24,7 @@ module.exports = {
             .setDescription(this.description)
             .addStringOption(option =>
                 option.setName('message')
-                    .setDescription("Message que je dois envoyer")
+                    .setDescription("Message que le bot doit envoyer. (; = saut de ligne)")
                     .setRequired(true)
             )
     }
