@@ -53,7 +53,11 @@ module.exports = {
 
 let status = [
     {
-        name: 'code un bot en js.',
+        name: '⚙️ | Le bot de gestion ',
+        type: ActivityType.Custom,
+    },
+    {
+        name: '',
         type: ActivityType.Custom,
     },
 ]
