@@ -26,5 +26,4 @@ rest.put(
         exec('node index.js');
             
         });
-    })
     .catch(console.error);
