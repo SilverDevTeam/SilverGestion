@@ -22,7 +22,7 @@ rest.put(
 .then((data) => {
     console.log(`Successfully registered ${data.length} application commands.`);
     const { exec } = require('child_process');
-    exec('npm start', (error, stdout, stderr);
+    exec('npm start');
     });
 })
 .catch(console.error);
