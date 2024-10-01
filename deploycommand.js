@@ -24,6 +24,6 @@ rest.put(
         console.log(`Successfully registered ${data.length} application commands.`);
         const { exec } = require('child_process');
         exec('node index.js');
-            
+        catch(console.error);
         });
-    catch(console.error);
+
