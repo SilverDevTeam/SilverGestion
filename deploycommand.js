@@ -21,11 +21,6 @@ rest.put(
 .then((data) => {
     console.log(`Successfully registered ${data.length} application commands.`);
     const { exec } = require('child_process');
-    exec('npm start', (err, stderr) => {
-        if (err) {
-            console.error(`Error executing npm start: ${stderr}`);
-            return;
-        }
+    exec('npm start')
     });
-})
 .catch(console.error);
