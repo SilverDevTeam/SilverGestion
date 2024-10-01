@@ -50,9 +50,21 @@ module.exports = {
                             .setEmoji("🖊️")
                             .setDefault(false),
                         new StringSelectMenuOptionBuilder()
+                            .setLabel("Desactivation de l'autorôle")
+                            .setValue("NOautoRole")
+                            .setDescription("Permet la desactivation du rôle automatique (que je donne a tout les nouveaux membres)")
+                            .setEmoji("🖊️")
+                            .setDefault(false),
+                        new StringSelectMenuOptionBuilder()
                             .setLabel("GhostPing")
                             .setValue("ghostping")
                             .setDescription("Permet la configuration de la mention automatique")
+                            .setEmoji("🔔")
+                            .setDefault(false),
+                        new StringSelectMenuOptionBuilder()
+                            .setLabel("Desactivation du GhostPing")
+                            .setValue("NOghostping")
+                            .setDescription("Permet la desactivation de la mention automatique")
                             .setEmoji("🔔")
                             .setDefault(false),
                     )
@@ -102,9 +114,21 @@ module.exports = {
                             .setEmoji("🖊️")
                             .setDefault(false),
                         new StringSelectMenuOptionBuilder()
+                            .setLabel("Desactivation de l'autorôle")
+                            .setValue("NOautoRole")
+                            .setDescription("Permet la desactivation du rôle automatique (que je donne a tout les nouveaux membres)")
+                            .setEmoji("🖊️")
+                            .setDefault(false),
+                        new StringSelectMenuOptionBuilder()
                             .setLabel("GhostPing")
                             .setValue("ghostping")
                             .setDescription("Permet la configuration de la mention automatique")
+                            .setEmoji("🔔")
+                            .setDefault(false),
+                        new StringSelectMenuOptionBuilder()
+                            .setLabel("Desactivation du GhostPing")
+                            .setValue("NOghostping")
+                            .setDescription("Permet la desactivation de la mention automatique")
                             .setEmoji("🔔")
                             .setDefault(false),
                     )
