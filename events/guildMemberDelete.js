@@ -19,7 +19,7 @@ module.exports = {
             const embedChannel = new EmbedBuilder()
                 .setTitle(donnee.byeTitle)
                 .setDescription(text)
-                .setColor(donnee.byeColor)
+                .setColor(donnee.byeColor ?? 'Red')
                 .setTimestamp()
                 .setFooter({
                     text: `SilverGestion`,

@@ -156,16 +156,35 @@ async function messageBvnBye(client, interaction, type) {
                     m.delete()
                     const text = m.content
 
-                    const msgBase = await m.reply('Fin de la configuration')
+                    const msgBase = await m.reply('Veuillez indiquer un code hexadecimal pour la couleur de l\'embed ou alors \`Red\` ou \`Green\`')
                     setTimeout(() => {
                         try {
                             msgBase.delete()
                         } catch {
                             return
                         }
-                    }, 15000);
+                    }, 60000);
 
-                    db.run(`UPDATE guilds SET ${type} = ?, ${type}Title = ?, ${type}Texte = ? WHERE guildId = ?`, [channel, title, text, interaction.guild.id]);
+                    const collectorColor = interaction.channel.createMessageCollector({
+                        filter,
+                        time: 60000,
+                        max: 1,
+                    });
+                    collectorColor.on("collect", async (m) => {
+                        m.delete()
+                        const color = m.content
+
+                        const msgBase = await m.reply('Fin de la configuration')
+                        setTimeout(() => {
+                            try {
+                                msgBase.delete()
+                            } catch {
+                                return
+                            }
+                        }, 10000);
+
+                        db.run(`UPDATE guilds SET ${type} = ?, ${type}Title = ?, ${type}Texte = ?, ${type}Color = ? WHERE guildId = ?`, [channel, title, text, color, interaction.guild.id]);
+                    })
                 })
             })
         } else {

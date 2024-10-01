@@ -22,7 +22,7 @@ module.exports = {
             const embedChannel = new EmbedBuilder()
                 .setTitle(donnee.bvnTitle)
                 .setDescription(text)
-                .setColor(donnee.bvnColor ?? client.config.color)
+                .setColor(donnee.bvnColor ?? 'Green')
                 .setTimestamp()
                 .setFooter({
                     text: `SilverGestion`,
