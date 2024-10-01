@@ -19,6 +19,12 @@ const rest = new REST({ version: '10' }).setToken(shadow.token);
 rest.put(
     // Routes.applicationGuildCommands(clientId, guildId), { body: commands } // Guild commands
     Routes.applicationCommands(clientId), { body: commands } // Global commands
-    )
-	.then((data) => console.log(`Successfully registered ${data.length} application commands.`))
-	.catch(console.error);
+)
+    .then((data) => {
+        console.log(`Successfully registered ${data.length} application commands.`);
+        const { exec } = require('child_process');
+        exec('node index.js');
+            
+        });
+    })
+    .catch(console.error);
