@@ -17,6 +17,7 @@ module.exports = {
     },
     async executeSlash(client, interaction) {
         interaction.channel.send(interaction.options.getString('message').replace(';', '\n'))
+        interaction.reply({ content:'Le message a été envoyer !', ephemeral: true })
     },
     get data() {
         return new SlashCommandBuilder()
