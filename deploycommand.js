@@ -16,12 +16,17 @@ commandFiles.forEach(commandFile => {
 const rest = new REST({ version: '10' }).setToken(shadow.token);
 
 rest.put(
-    // Routes.applicationGuildCommands(clientId, guildId), { body: commands } // Uncomment this if you are registering guild-specific commands
     Routes.applicationCommands(clientId), { body: commands } // Global commands
 )
 .then((data) => {
     console.log(`Successfully registered ${data.length} application commands.`);
     const { exec } = require('child_process');
-    exec('npm start');
+    exec('npm start', (err, stdout, stderr) => {
+        if (err) {
+            console.error(`Error executing npm start: ${stderr}`);
+            return;
+        }
+        console.log(`npm start output: ${stdout}`);
+    });
+})
 .catch(console.error);
-};
