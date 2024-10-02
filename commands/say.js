@@ -9,8 +9,9 @@ module.exports = {
     guildOwnerOnly: false,
     botOwnerOnly: false,
     async execute(client, message, args) {
-        const permission = message.author.permissions.has(PermissionFlagsBits.MentionEveryone);
-
+        const member = await message.guild.members.fetch(message.author.id);
+        const permission = member.permissions.has(PermissionsBitField.Flags.MentionEveryone)
+        
         if ((message.content.includes('@here') || message.content.includes('@everyone')) && !permission) return message.channel.send('> Tu ne peux pas ping dans un say <@' + message.author.id + '>')
         let msg = ""
         for (let i = 0; i < args.length; i++) {
