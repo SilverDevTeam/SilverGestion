@@ -2,6 +2,4 @@
 
 Todo List :
 
-Auto restart quand on change le code
-
-commit de test 3
+Auto restart quand on change le code (EN COURS)
