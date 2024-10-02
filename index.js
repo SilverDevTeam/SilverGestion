@@ -10,7 +10,7 @@ const client = new Client({
     failIfNotExists: false,
     presence: {
         activities: [{
-            name: `starting...`,
+            name: `Démarrage du bot en cours...`,
             type: ActivityType.Custom,
         }],
         status: "dnd"

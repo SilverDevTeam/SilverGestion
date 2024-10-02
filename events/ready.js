@@ -57,7 +57,7 @@ let status = [
         type: ActivityType.Custom,
     },
     {
-        name: '',
+        name: '🔥 | SilverGestion',
         type: ActivityType.Custom,
     },
 ]
