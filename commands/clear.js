@@ -13,8 +13,8 @@ module.exports = {
             return message.channel.send('Veuillez specifier le nombre de messages à supprimer.')
         }
         const nombre = args[0]
-        if (nombre > 100) return message.channel.send('**Je ne peux supprimer plus de 100 message.**')
-        message.channel.bulkDelete(Number(nombre))
+        if (nombre > 99) return message.channel.send('**Je ne peux supprimer plus de 99 message.**')
+        message.channel.bulkDelete(Number(nombre + 1))
             .then(async () => {
                 const msg = await message.channel.send('> **<a:warning:1290717663001051207> Les messages ont été suppimés.**')
                 setTimeout(() => {
