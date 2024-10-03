@@ -29,6 +29,10 @@ module.exports = {
                 `INSERT OR IGNORE INTO guilds (guildId) VALUES (?)`,
                 [guild.id],
             );
+            db.run(
+                `INSERT OR IGNORE INTO logs (guildId) VALUES (?)`,
+                [guild.id],
+            );
             guild.members.cache.forEach((member) => {
                 db.run(`INSERT OR IGNORE INTO users (guildId, userId) VALUES (?, ?)`, [
                     guild.id,
@@ -37,10 +41,6 @@ module.exports = {
             })
             guild.channels.cache.forEach((channel) => {
                 db.run(`INSERT OR IGNORE INTO channels (guildId, channelId) VALUES (?, ?)`, [
-                    guild.id,
-                    channel.id,
-                ]);
-                db.run(`INSERT OR IGNORE INTO logs (guildId, channelId) VALUES (?, ?)`, [
                     guild.id,
                     channel.id,
                 ]);

@@ -152,25 +152,25 @@ module.exports = {
             if (server) {
                 server = `<#${logs.logsserveur}>`
             } else server = '<:no:1290955008426246195>'
-            
+
             const button = new ActionRowBuilder()
-            .addComponents(
-                new ButtonBuilder()
-                    .setCustomId('logscmd')
-                    .setLabel('Logs des commande'),
-                new ButtonBuilder()
-                    .setCustomId('logsmsg')
-                    .setLabel('Logs des commande'),
-                new ButtonBuilder()
-                    .setCustomId('logsserveur')
-                    .setLabel('Logs des commande'),
-            )
+                .addComponents(
+                    new ButtonBuilder()
+                        .setCustomId('logscmd')
+                        .setLabel('Logs des commandes'),
+                    new ButtonBuilder()
+                        .setCustomId('logsmessage')
+                        .setLabel('Logs des messages'),
+                    new ButtonBuilder()
+                        .setCustomId('logsserveur')
+                        .setLabel('Logs du serveur'),
+                )
 
             const embedlog = new EmbedBuilder()
                 .setColor(client.config.color)
                 .setTitle('Configuration des logs')
                 .setDescription('Logs des commandes : ' + cmd + '\nLogs des message : ' + msg + '\nLogs serveur : ' + serveur)
-            interaction.reply({ embed: [embedlog], components: [button], ephemeral: true })    
+            interaction.reply({ embed: [embedlog], components: [button], ephemeral: true })
         }
     }
 }
@@ -194,65 +194,33 @@ async function messageBvnBye(client, interaction, type) {
     });
     collector.on("collect", async (m) => {
         m.delete()
-        if (m.content == 'delete' || m.content == 'DELETE') return
-    })
-
-    const msgBase = await interaction.reply('Veuillez mentionner le salon dans lequel vous voulez recevoir les messages.')
-    setTimeout(() => {
-        try {
-            msgBase.delete()
-        } catch {
+        if (m.content == 'delete' || m.content == 'DELETE') {
+            db.run(`UPDATE guilds SET ${type} = ?, ${type}Title = ?, ${type}Texte = ?, ${type}Color = ? WHERE guildId = ?`, [null, null, null, null, interaction.guild.id]);
+            m.channel.send('**Configuration supprimée !**')
             return
-        }
-    }, 30000);
-
-    const collectorChannel = interaction.channel.createMessageCollector({
-        filter,
-        time: 30000,
-        max: 1,
-    });
-    collectorChannel.on("collect", async (m) => {
-        m.delete()
-        let channel = m.content
-        channel = channel.replace('<#', '')
-        channel = channel.replace('>', '')
-        if (client.channels.cache.get(channel)) {
-
-            const msgBase = await m.reply('Veuillez ecrire le titre du message.')
+        } else {
+            const msgBase = await interaction.reply('Veuillez mentionner le salon dans lequel vous voulez recevoir les messages.')
             setTimeout(() => {
                 try {
                     msgBase.delete()
                 } catch {
                     return
                 }
-            }, 60000);
-            const collectorTitre = interaction.channel.createMessageCollector({
+            }, 30000);
+
+            const collectorChannel = interaction.channel.createMessageCollector({
                 filter,
-                time: 60000,
+                time: 30000,
                 max: 1,
             });
-            collectorTitre.on("collect", async (m) => {
+            collectorChannel.on("collect", async (m) => {
                 m.delete()
-                const title = m.content
+                let channel = m.content
+                channel = channel.replace('<#', '')
+                channel = channel.replace('>', '')
+                if (client.channels.cache.get(channel)) {
 
-                const msgBase = await m.reply('Veuillez ecrire le contenu du message. \n-# Possiblité de mettre [membre] pour mentionner le membre ou encore [serveur] pour mettre le noms du serveur')
-                setTimeout(() => {
-                    try {
-                        msgBase.delete()
-                    } catch {
-                        return
-                    }
-                }, 60000);
-                const collectorText = interaction.channel.createMessageCollector({
-                    filter,
-                    time: 60000,
-                    max: 1,
-                });
-                collectorText.on("collect", async (m) => {
-                    m.delete()
-                    const text = m.content
-
-                    const msgBase = await m.reply('Veuillez indiquer un code hexadecimal pour la couleur de l\'embed ou alors \`Red\` ou \`Green\`')
+                    const msgBase = await m.reply('Veuillez ecrire le titre du message.')
                     setTimeout(() => {
                         try {
                             msgBase.delete()
@@ -260,38 +228,74 @@ async function messageBvnBye(client, interaction, type) {
                             return
                         }
                     }, 60000);
-
-                    const collectorColor = interaction.channel.createMessageCollector({
+                    const collectorTitre = interaction.channel.createMessageCollector({
                         filter,
                         time: 60000,
                         max: 1,
                     });
-                    collectorColor.on("collect", async (m) => {
+                    collectorTitre.on("collect", async (m) => {
                         m.delete()
-                        const color = m.content
+                        const title = m.content
 
-                        const msgBase = await m.reply('Fin de la configuration')
+                        const msgBase = await m.reply('Veuillez ecrire le contenu du message. \n-# Possiblité de mettre [membre] pour mentionner le membre ou encore [serveur] pour mettre le noms du serveur')
                         setTimeout(() => {
                             try {
                                 msgBase.delete()
                             } catch {
                                 return
                             }
-                        }, 10000);
+                        }, 60000);
+                        const collectorText = interaction.channel.createMessageCollector({
+                            filter,
+                            time: 60000,
+                            max: 1,
+                        });
+                        collectorText.on("collect", async (m) => {
+                            m.delete()
+                            const text = m.content
 
-                        db.run(`UPDATE guilds SET ${type} = ?, ${type}Title = ?, ${type}Texte = ?, ${type}Color = ? WHERE guildId = ?`, [channel, title, text, color, interaction.guild.id]);
+                            const msgBase = await m.reply('Veuillez indiquer un code hexadecimal pour la couleur de l\'embed ou alors \`Red\` ou \`Green\`')
+                            setTimeout(() => {
+                                try {
+                                    msgBase.delete()
+                                } catch {
+                                    return
+                                }
+                            }, 60000);
+
+                            const collectorColor = interaction.channel.createMessageCollector({
+                                filter,
+                                time: 60000,
+                                max: 1,
+                            });
+                            collectorColor.on("collect", async (m) => {
+                                m.delete()
+                                const color = m.content
+
+                                const msgBase = await m.reply('Fin de la configuration')
+                                setTimeout(() => {
+                                    try {
+                                        msgBase.delete()
+                                    } catch {
+                                        return
+                                    }
+                                }, 10000);
+
+                                db.run(`UPDATE guilds SET ${type} = ?, ${type}Title = ?, ${type}Texte = ?, ${type}Color = ? WHERE guildId = ?`, [channel, title, text, color, interaction.guild.id]);
+                            })
+                        })
                     })
-                })
-            })
-        } else {
-            const msgchannel = await m.reply('Veuillez recommencer en mentionner un salon valide.')
-            setTimeout(() => {
-                try {
-                    msgchannel.delete()
-                } catch {
-                    return
+                } else {
+                    const msgchannel = await m.reply('Veuillez recommencer en mentionner un salon valide.')
+                    setTimeout(() => {
+                        try {
+                            msgchannel.delete()
+                        } catch {
+                            return
+                        }
+                    }, 7500);
                 }
-            }, 5000);
+            })
         }
     })
 }

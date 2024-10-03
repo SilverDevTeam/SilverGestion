@@ -44,11 +44,10 @@ db.run(`CREATE TABLE IF NOT EXISTS channels (
 
 db.run(`CREATE TABLE IF NOT EXISTS logs (
   guildId TEXT,
-  channelId TEXT,
   logscmd TEXT,
   logsmessage TEXT,
   logsserveur TEXT,
-  PRIMARY KEY (guildId, channelId)
+  PRIMARY KEY (guildId)
 )`)
 
 module.exports = db;
