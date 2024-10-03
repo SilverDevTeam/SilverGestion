@@ -50,4 +50,12 @@ db.run(`CREATE TABLE IF NOT EXISTS logs (
   PRIMARY KEY (guildId)
 )`)
 
+db.run(`CREATE TABLE IF NOT EXISTS sanction (
+  guildId TEXT,
+  ID INTERGER,
+  userId TEXT,
+  reason TEXT,
+  PRIMARY KEY (ID)
+)`)
+
 module.exports = db;
