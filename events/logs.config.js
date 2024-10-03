@@ -21,14 +21,7 @@ module.exports = {
 
 async function logsConfig(client, interaction, logs) {
     
-    const msg = await interaction.reply('Voulez vous supprimer la configuration ou la modifier ? (`delete` pour supprimer, sinon `suite`)')
-    setTimeout(() => {
-        try {
-            msg.delete()
-        } catch {
-            return
-        }
-    }, 20000);
+    const msg = await interaction.reply({ content: 'Voulez vous supprimer la configuration ou la modifier ? (`delete` pour supprimer, sinon `suite`)', ephemeral: true })
 
     const filter = (m) => m.author.id === interaction.user.id;
     const collector = interaction.channel.createMessageCollector({
@@ -43,14 +36,7 @@ async function logsConfig(client, interaction, logs) {
             m.channel.send('**Configuration supprimée !**')
             return
         } else {
-            const msgBase = await interaction.reply('Veuillez mentionner le salon dans lequel vous voulez recevoir les logs .')
-            setTimeout(() => {
-                try {
-                    msgBase.delete()
-                } catch {
-                    return
-                }
-            }, 30000);
+            msg.edit({ content: 'Veuillez mentionner le salon dans lequel vous voulez recevoir les logs.' })
 
             const collectorChannel = interaction.channel.createMessageCollector({
                 filter,
@@ -63,6 +49,7 @@ async function logsConfig(client, interaction, logs) {
                 channel = channel.replace('<#', '')
                 channel = channel.replace('>', '')
                 if (client.channels.cache.get(channel)) { 
+                    msg.edit({ content: '**Configuration terminée !**' })
                     db.run(`UPDATE logs SET ${logs} = ? WHERE guildId = ?`, [channel, interaction.guild.id]);
                 } else {
                     const msgchannel = await m.reply('Veuillez recommencer en mentionner un salon valide.')
