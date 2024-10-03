@@ -54,6 +54,12 @@ module.exports = {
                         .setDescription("Permet la configuration de la mention automatique")
                         .setEmoji("<a:ping:1290715689845395547>")
                         .setDefault(false),
+                    new StringSelectMenuOptionBuilder()
+                        .setLabel("Logs")
+                        .setValue("logs")
+                        .setDescription("Permet la configuration des salons de logs")
+                        .setEmoji("<:designer:1290726918592925797>")
+                        .setDefault(false),
                     )
             )
 
@@ -104,6 +110,12 @@ module.exports = {
                             .setValue("ghostping")
                             .setDescription("Permet la configuration de la mention automatique")
                             .setEmoji("<a:ping:1290715689845395547>")
+                            .setDefault(false),
+                        new StringSelectMenuOptionBuilder()
+                            .setLabel("Logs")
+                            .setValue("logs")
+                            .setDescription("Permet la configuration des salons de logs")
+                            .setEmoji("<:designer:1290726918592925797>")
                             .setDefault(false),
                     )
             )

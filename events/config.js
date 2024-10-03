@@ -132,6 +132,46 @@ module.exports = {
                 }
             })
         }
+        else if (selected === "logs") {
+            const logs = await new Promise((resolve, reject) => {
+                db.get(`SELECT * FROM logs WHERE guildId = ?`, [member.guild.id], (err, row) => {
+                    if (err) reject(err);
+                    resolve(row);
+                });
+            });
+
+            let cmd = logs.logscmd
+            let msg = logs.logsmessage
+            let server = logs.logsserveur
+            if (cmd) {
+                cmd = `<#${logs.logscmd}>`
+            } else cmd = '<:no:1290955008426246195>'
+            if (msg) {
+                msg = `<#${logs.logsmessage}>`
+            } else msg = '<:no:1290955008426246195>'
+            if (server) {
+                server = `<#${logs.logsserveur}>`
+            } else server = '<:no:1290955008426246195>'
+            
+            const button = new ActionRowBuilder()
+            .addComponents(
+                new ButtonBuilder()
+                    .setCustomId('logscmd')
+                    .setLabel('Logs des commande'),
+                new ButtonBuilder()
+                    .setCustomId('logsmsg')
+                    .setLabel('Logs des commande'),
+                new ButtonBuilder()
+                    .setCustomId('logsserveur')
+                    .setLabel('Logs des commande'),
+            )
+
+            const embedlog = new EmbedBuilder()
+                .setColor(client.config.color)
+                .setTitle('Configuration des logs')
+                .setDescription('Logs des commandes : ' + cmd + '\nLogs des message : ' + msg + '\nLogs serveur : ' + serveur)
+            interaction.reply({ embed: [embedlog], components: [button], ephemeral: true })    
+        }
     }
 }
 
