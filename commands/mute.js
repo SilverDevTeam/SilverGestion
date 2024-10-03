@@ -25,6 +25,8 @@ module.exports = {
             }, 30000);
             return
         }
+        if (member.id === message.author.id) return message.channel.send({ content: `<a:protect:1290717554544742440> Vous ne pouvez pas vous auto-mute !` });
+
         const time = args[1]
         if (isNaN(time)) {
             const msg = await message.channel.send(`<a:protect:1290717554544742440> Veuillez envoyer : \`${client.config.prefix}mute <membre> <durée> <unité> <raison>\`. La durée doit être un **nombre**, et l'unité dois être **s**, **m**, **h**, **j**. **Il est obligatoire de mettre un espace entre le nombre et l'unité.**\n\n<a:protect:1290717554544742440> Exemple : ||${client.config.prefix}mute <@${client.config.id}> 2 h test||`)

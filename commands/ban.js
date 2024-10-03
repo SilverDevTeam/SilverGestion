@@ -22,7 +22,7 @@ module.exports = {
 
         if (!member) return message.channel.send({ content: `<a:protect:1290717554544742440> Veuillez mentionner un membre du serveur !` });
 
-        if (member === message.author.id)
+        if (member.id === message.author.id)
             return message.channel.send({ content: `<a:protect:1290717554544742440> Vous ne pouvez pas vous auto-ban !` });
 
         if (member.roles.highest.position >= message.member.roles.highest.position) {
