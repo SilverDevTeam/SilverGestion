@@ -54,6 +54,7 @@ process.on("unhandledRejection", (error) => {
     if (error.code == 50007) return; // Cannot send messages to this user
     if (error.code == 50013) return; // Missing Permission
     if (error.code == 10026) return; // Unknown Ban -> membre non banni
+    if (error.code == 40060) return; // Interaction has already been acknowledged.
     loggE(client, `\`\`\`ansi\n[31m${error}[39m\`\`\`\n\n\`[ERROR.CODE] : ${error.code}\`\n`)
     console.log(`[ERROR] ${error}\n[ERROR.CODE] : ${error.code}\n`.red);
 })
