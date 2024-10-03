@@ -30,6 +30,12 @@ module.exports = {
             return
         }
 
+        if (member.roles.highest.position >= message.member.roles.highest.position) {
+            return message.channel.send({
+                content: `<a:protect:1290717554544742440> Vous ne pouvez pas exclure un membre qui a un rôle plus haut que vous !`
+            });
+        }
+        
         try {
             const embedunmute = new EmbedBuilder()
                 .setColor('Green')
