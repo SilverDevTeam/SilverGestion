@@ -25,7 +25,7 @@ module.exports = function loggE(client, erreur) {
         .setColor('Red')
         .setTimestamp()
         .setFooter({
-            text: `La console virtuelle !`,
+            text: `CONSOLE`,
             iconURL: client.user.displayAvatarURL(), 
         });
 
