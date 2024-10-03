@@ -6,7 +6,7 @@ module.exports = {
     name: 'interactionCreate',
     async execute(client, interaction) {
         if (!interaction.isButton()) return
-        if (!interaction.customId.includes('logs')) return;
+        if ((!interaction.customId === 'logsmessage') && (!interaction.customId === 'logscmd') && (!interaction.customId === 'logsserveur')) return;
 
         // CHECK PERMS
         const authorPerms = interaction.guild.channels.cache.get(interaction.channelId).permissionsFor(interaction.user);
