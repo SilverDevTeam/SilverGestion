@@ -134,7 +134,7 @@ module.exports = {
         }
         else if (selected === "logs") {
             const logs = await new Promise((resolve, reject) => {
-                db.get(`SELECT * FROM logs WHERE guildId = ?`, [member.guild.id], (err, row) => {
+                db.get(`SELECT * FROM logs WHERE guildId = ?`, [interaction.guild.id], (err, row) => {
                     if (err) reject(err);
                     resolve(row);
                 });
@@ -157,20 +157,23 @@ module.exports = {
                 .addComponents(
                     new ButtonBuilder()
                         .setCustomId('logscmd')
-                        .setLabel('Logs des commandes'),
+                        .setLabel('Logs des commandes')
+                        .setStyle(ButtonStyle.Secondary),
                     new ButtonBuilder()
                         .setCustomId('logsmessage')
-                        .setLabel('Logs des messages'),
+                        .setLabel('Logs des messages')
+                        .setStyle(ButtonStyle.Secondary),
                     new ButtonBuilder()
                         .setCustomId('logsserveur')
-                        .setLabel('Logs du serveur'),
+                        .setLabel('Logs du serveur')
+                        .setStyle(ButtonStyle.Secondary),
                 )
 
             const embedlog = new EmbedBuilder()
                 .setColor(client.config.color)
                 .setTitle('Configuration des logs')
-                .setDescription('Logs des commandes : ' + cmd + '\nLogs des message : ' + msg + '\nLogs serveur : ' + serveur)
-            interaction.reply({ embed: [embedlog], components: [button], ephemeral: true })
+                .setDescription('Logs des commandes : ' + cmd + '\nLogs des message : ' + msg + '\nLogs serveur : ' + server)
+            interaction.reply({ embeds: [embedlog], components: [button], ephemeral: true })
         }
     }
 }
@@ -178,13 +181,6 @@ module.exports = {
 async function messageBvnBye(client, interaction, type) {
 
     const msg = await interaction.reply('Voulez vous supprimer la configuration ou la modifier ? (`delete` pour supprimer, sinon `suite`)')
-    setTimeout(() => {
-        try {
-            msg.delete()
-        } catch {
-            return
-        }
-    }, 15000);
 
     const filter = (m) => m.author.id === interaction.user.id;
     const collector = interaction.channel.createMessageCollector({
@@ -196,17 +192,10 @@ async function messageBvnBye(client, interaction, type) {
         m.delete()
         if (m.content == 'delete' || m.content == 'DELETE') {
             db.run(`UPDATE guilds SET ${type} = ?, ${type}Title = ?, ${type}Texte = ?, ${type}Color = ? WHERE guildId = ?`, [null, null, null, null, interaction.guild.id]);
-            m.channel.send('**Configuration supprimée !**')
+            msg.edit('**Configuration supprimée !**')
             return
         } else {
-            const msgBase = await interaction.reply('Veuillez mentionner le salon dans lequel vous voulez recevoir les messages.')
-            setTimeout(() => {
-                try {
-                    msgBase.delete()
-                } catch {
-                    return
-                }
-            }, 30000);
+            msg.edit('Veuillez mentionner le salon dans lequel vous voulez recevoir les messages.')
 
             const collectorChannel = interaction.channel.createMessageCollector({
                 filter,
@@ -220,14 +209,7 @@ async function messageBvnBye(client, interaction, type) {
                 channel = channel.replace('>', '')
                 if (client.channels.cache.get(channel)) {
 
-                    const msgBase = await m.reply('Veuillez ecrire le titre du message.')
-                    setTimeout(() => {
-                        try {
-                            msgBase.delete()
-                        } catch {
-                            return
-                        }
-                    }, 60000);
+                    msg.edit('Veuillez ecrire le titre du message.')
                     const collectorTitre = interaction.channel.createMessageCollector({
                         filter,
                         time: 60000,
@@ -237,14 +219,7 @@ async function messageBvnBye(client, interaction, type) {
                         m.delete()
                         const title = m.content
 
-                        const msgBase = await m.reply('Veuillez ecrire le contenu du message. \n-# Possiblité de mettre [membre] pour mentionner le membre ou encore [serveur] pour mettre le noms du serveur')
-                        setTimeout(() => {
-                            try {
-                                msgBase.delete()
-                            } catch {
-                                return
-                            }
-                        }, 60000);
+                        msg.edit('Veuillez ecrire le contenu du message. \n-# Possiblité de mettre [membre] pour mentionner le membre ou encore [serveur] pour mettre le noms du serveur')
                         const collectorText = interaction.channel.createMessageCollector({
                             filter,
                             time: 60000,
@@ -254,14 +229,7 @@ async function messageBvnBye(client, interaction, type) {
                             m.delete()
                             const text = m.content
 
-                            const msgBase = await m.reply('Veuillez indiquer un code hexadecimal pour la couleur de l\'embed ou alors \`Red\` ou \`Green\`')
-                            setTimeout(() => {
-                                try {
-                                    msgBase.delete()
-                                } catch {
-                                    return
-                                }
-                            }, 60000);
+                            msg.edit('Veuillez indiquer un code hexadecimal pour la couleur de l\'embed ou alors \`Red\` ou \`Green\`')
 
                             const collectorColor = interaction.channel.createMessageCollector({
                                 filter,
@@ -272,15 +240,7 @@ async function messageBvnBye(client, interaction, type) {
                                 m.delete()
                                 const color = m.content
 
-                                const msgBase = await m.reply('Fin de la configuration')
-                                setTimeout(() => {
-                                    try {
-                                        msgBase.delete()
-                                    } catch {
-                                        return
-                                    }
-                                }, 10000);
-
+                                msg.edit('**Configuration terminée !**')
                                 db.run(`UPDATE guilds SET ${type} = ?, ${type}Title = ?, ${type}Texte = ?, ${type}Color = ? WHERE guildId = ?`, [channel, title, text, color, interaction.guild.id]);
                             })
                         })
