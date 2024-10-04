@@ -21,6 +21,7 @@ module.exports = {
         const member = message.mentions.members.first() ?? message.guild.members.cache.get(args[0])
 
         if (!member) return message.channel.send({ content: `<a:protect:1290717554544742440> Veuillez mentionner un membre du serveur !` });
+        if (member.bot) return message.channel.send({ content: `<a:protect:1290717554544742440> Je ne peux pas avertir un bot !` });
 
         if (member.id === message.author.id) return message.channel.send({ content: `<a:protect:1290717554544742440> Vous ne pouvez pas vous auto-avertir !` });
 
@@ -29,22 +30,21 @@ module.exports = {
                 content: `<a:protect:1290717554544742440> Vous ne pouvez pas avertir un membre qui a un rôle plus haut que vous !`
             });
         }
-        member.send(`**Avertissement reçu** sur le serveur ${message.guild.name} - ${reason}`).catch()
-            .then(async () => {
-                try {
+        try {
+            member.send(`**Avertissement reçu** sur le serveur ${message.guild.name} - ${reason}`)
+                .then(async () => {
                     db.run(`INSERT INTO sanction (guildId, userId, reason) VALUES(?, ?, ?)`, [message.guild.id, member.id, reason])
                     message.channel.send(`<a:protect:1290717554544742440> <@${member.id}> est bien averti(e) !`)
-                }
-                catch {
-                    return message.channel.send(`<a:protect:1290717554544742440> Je n'arrive pas a avertir <@${member.id}>, veuillez verifier mon placement dans les roles et mes permission !`)
-                }
-            })
+                })
+        } catch {
+            return message.channel.send(`<a:protect:1290717554544742440> Je n'arrive pas a avertir <@${member.id}>, veuillez verifier mon placement dans les roles et mes permission !`)
+        }
     },
     async executeSlash(client, interaction) {
         const member = interaction.options.getUser('membre');
         const reason = interaction.options.getString('raison');
 
-        
+
         member.send(`**Avertissement reçu** sur le serveur ${interaction.guild.name} - ${reason}`).catch()
             .then(() => {
                 try {
