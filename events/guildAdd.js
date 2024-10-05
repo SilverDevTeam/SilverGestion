@@ -20,9 +20,8 @@ module.exports = {
                 guild.id,
                 channel.id,
             ]);
-            db.run(`INSERT OR IGNORE INTO logs (guildId, channelId) VALUES (?, ?)`, [
-                guild.id,
-                channel.id,
+            db.run(`INSERT OR IGNORE INTO logs (guildId) VALUES (?, ?)`, [
+                guild.id
             ]);
         })
 
