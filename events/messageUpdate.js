@@ -14,6 +14,7 @@ module.exports = {
     });
     if (donnee.logsmessage) {
       try {
+        if (oldMessage.author.bot) return
         const embed = new EmbedBuilder()
           .setTitle(`Message modifié`)
           .setDescription(`**Utilisateur : <@${oldMessage.author.id}> | \`${oldMessage.author.tag}\`**\n**Nouveau contenu :** [ICI](https://discord.com/channels/${oldMessage.guild.id}/${oldMessage.channel.id}/${oldMessage.id})\n**Ancien contenu du message :**\n\n` + oldMessage.content)

@@ -26,6 +26,7 @@ module.exports = {
     });
     if (donnee.logsmessage) {
       try {
+        if (message.author.bot) return
         const embed = new EmbedBuilder()
           .setTitle(`Message supprimé`)
           .setDescription(`**Utilisateur : <@${message.author.id}> | \`${message.author.tag}\`**\nContenu du message :\n\n` + message.content)
