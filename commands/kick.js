@@ -45,7 +45,7 @@ module.exports = {
         const reason = interaction.options.getString('raison');
 
         
-        member.send(`**Exclu(e)** du serveur ${message.guild.name} - ${reason}`)
+        member.send(`**Exclu(e)** du serveur ${interaction.guild.name} - ${reason}`)
             .then(() => {
                 try {
                     member.kick({ reason: `Expulser par ${interaction.user.tag} - pour: ${reason}` });

@@ -46,7 +46,7 @@ module.exports = {
         const member = interaction.options.getUser('membre');
         const reason = interaction.options.getString('raison');
   
-        member.send(`**Banni(e)** du serveur ${message.guild.name} - ${reason}`)
+        member.send(`**Banni(e)** du serveur ${interaction.guild.name} - ${reason}`)
             .then(() => {
                 try {
                     interaction.guild.members.ban(member.id, { reason: `Bannis par ${interaction.user.tag} - pour: ${reason}` });
