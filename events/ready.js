@@ -21,7 +21,7 @@ module.exports = {
         setInterval(() => {
             let random = Math.floor(Math.random() * status.length);
             client.user.setActivity(status[random]);
-        }, 6000);
+        }, 7500);
 
 
         client.guilds.cache.forEach((guild) => {
@@ -58,6 +58,18 @@ let status = [
     },
     {
         name: '🔥 | SilverGestion',
+        type: ActivityType.Custom,
+    },
+    {
+        name: '🥰 | SilverGestion',
+        type: ActivityType.Custom,
+    },
+    {
+        name: '🛡️ | SilverGestion',
+        type: ActivityType.Custom,
+    },
+    {
+        name: '🔒 | SilverGestion',
         type: ActivityType.Custom,
     },
 ]
