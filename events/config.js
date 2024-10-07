@@ -76,7 +76,7 @@ module.exports = {
             })
         }
         else if (selected === "ghostping") {
-            const msg = await interaction.reply('Voulez vous supprimer la configuration ou la modifier ? (`delete` pour supprimer, sinon `suite`)')
+            const msg = await interaction.reply({ content: 'Voulez vous supprimer la configuration ou la modifier ? (`delete` pour supprimer, sinon `suite`)', ephemeral: true })
             setTimeout(() => {
                 try {
                     msg.delete()
@@ -94,7 +94,7 @@ module.exports = {
             collector.on("collect", async (m) => {
                 m.delete()
                 if (m.content == 'delete' || m.content == 'DELETE') {
-                    const message = await interaction.reply({ content: 'Veuillez mentionner/envoyer l\'id du salon conserné.', ephemeral: true })
+                    msg.edit({ content: 'Veuillez mentionner/envoyer l\'id du salon conserné.', ephemeral: true })
                     const collectorSalon = interaction.channel.createMessageCollector({
                         filter,
                         time: 30000,
@@ -107,13 +107,13 @@ module.exports = {
                         channel = channel.replace('>', '')
                         if (interaction.guild.channels.cache.get(channel)) {
                             db.run(`UPDATE channels SET ghostping = 0 WHERE guildId = ? AND channelId = ?`, [interaction.guild.id, channel]);
-                            message.edit({ content: 'Fin de la configuration.' })
-                        } else return message.edit({ content: 'Veuillez recommencer en mentionnant un salon valide.' })
+                            msg.edit({ content: 'Fin de la configuration.' })
+                        } else return msg.edit({ content: 'Veuillez recommencer en mentionnant un salon valide.' })
                     })
                     return
                 }
                 else {
-                    const message = await interaction.reply({ content: 'Veuillez mentionner/envoyer l\'id du salon conserné.', ephemeral: true })
+                    msg.edit({ content: 'Veuillez mentionner/envoyer l\'id du salon conserné.', ephemeral: true })
                     const collectorSalon = interaction.channel.createMessageCollector({
                         filter,
                         time: 30000,
@@ -126,8 +126,8 @@ module.exports = {
                         channel = channel.replace('>', '')
                         if (interaction.guild.channels.cache.get(channel)) {
                             db.run(`UPDATE channels SET ghostping = 1 WHERE guildId = ? AND channelId = ?`, [interaction.guild.id, channel]);
-                            message.edit({ content: 'Fin de la configuration.' })
-                        } else return message.edit({ content: 'Veuillez recommencer en mentionnant un salon valide.' })
+                            msg.edit({ content: 'Fin de la configuration.' })
+                        } else return msg.edit({ content: 'Veuillez recommencer en mentionnant un salon valide.' })
                     })
                 }
             })
